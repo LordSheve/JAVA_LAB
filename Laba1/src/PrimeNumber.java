@@ -9,27 +9,27 @@ public class PrimeNumber {
 
     Scanner in = new Scanner(System.in);
 
-    public void readSecondNumbers() {
+    public void readFirstNumbers() {
         System.out.print("Введите с какого числа, начать искать: ");
         while (!in.hasNextInt()) {
             in.next();
             System.out.print("Введите число пожалуйста: ");
         }
-        secondNumber = in.nextInt();
+        firstNumber = in.nextInt();
 
-        while (secondNumber <= 1) {
+        while (firstNumber <= 1) {
             System.out.print("Введите число пожалуйста: ");
-            secondNumber = in.nextInt();
+            firstNumber = in.nextInt();
         }
     }
 
-    public void readFirstNumbers() {
+    public void readSecondNumbers() {
         System.out.print("Введите по какое число, закончить искать: ");
         while (!in.hasNextInt()) {
             in.next();
             System.out.print("Введите число пожалуйста: ");
         }
-        firstNumber = in.nextInt();
+        secondNumber = in.nextInt();
     }
 
     private void findPrimes(int firstNumber, int secondNumber, List<Integer> primes) {
@@ -57,9 +57,9 @@ public class PrimeNumber {
         //список для простых чисел
         PrimeNumber primeNumber = new PrimeNumber();
         List<Integer> primes = new ArrayList<>();
-        primeNumber.readSecondNumbers();
         primeNumber.readFirstNumbers();
-        primeNumber.findPrimes(secondNumber, firstNumber, primes);
+        primeNumber.readSecondNumbers();
+        primeNumber.findPrimes(firstNumber, secondNumber, primes);
         primeNumber.listOutput(primes);
     }
 }
