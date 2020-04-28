@@ -19,10 +19,10 @@ public class Teachers implements Runnable {
             try {
                 Thread.currentThread().setName("Subject: " + studentType);
 
-                Thread.sleep(500);
                 Student student = tunnel.get(studentType);
                 if (student != null)
                 while (student.countCheck()) {
+                    //использую sleep только для эмуляции работы студентов(нужно время чтоб студенты пришли)
                     Thread.sleep(100);
                     student.add(5);
                     System.out.println(student.getCount() + " Jobs verified " + Thread.currentThread().getName());

@@ -23,13 +23,9 @@ public class StudentGenerator implements Runnable {
             Thread.currentThread().setName("Generator student");
             count++;
             tunnel.add(new Student(getRandomSize(), getRandomType()));
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
+
     private Type getRandomType() {
         Random random = new Random();
         return Type.values()[random.nextInt(Type.values().length)];
