@@ -49,17 +49,15 @@ public class Command {
         {
             System.out.print("Введите название товара у которого хотите узнать цену: ");
             String title = input.next();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT cost FROM product WHERE title = ?");
-            preparedStatement.setString(1, title);
-            ResultSet resultSet = preparedStatement.executeQuery();
+            try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT cost FROM product WHERE title = ?")) {
+                preparedStatement.setString(1, title);
+                ResultSet resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next())
-            {
-                System.out.println(resultSet.getInt("cost"));
-            }
-            else
-            {
-                System.out.println("Такого товара нет");
+                if (resultSet.next()) {
+                    System.out.println(resultSet.getInt("cost"));
+                } else {
+                    System.out.println("Такого товара нет");
+                }
             }
         }
     }
@@ -113,16 +111,14 @@ public class Command {
 
     public static void show_allProduct() throws SQLException {
         System.out.println("Вывод всех товаров");
-        ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM product");
-        while (resultSet.next())
-        {
-            System.out.print(resultSet.getInt("id") + "  ");
-            System.out.print(resultSet.getInt("prodid") + "  ");
-            System.out.print(resultSet.getString("title") + "  ");
-            System.out.print(resultSet.getInt("cost"));
-            System.out.println();
+        try (ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM product")) {
+            while (resultSet.next()) {
+                System.out.print(resultSet.getInt("id") + "  ");
+                System.out.print(resultSet.getInt("prodid") + "  ");
+                System.out.print(resultSet.getString("title") + "  ");
+                System.out.print(resultSet.getInt("cost"));
+                System.out.println();
+            }
         }
     }
-
-
 }
