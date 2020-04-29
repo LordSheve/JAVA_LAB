@@ -16,20 +16,15 @@ public class Teachers implements Runnable {
     @Override
     public void run() {
         while (true) {
-            try {
-                Thread.currentThread().setName("Subject: " + studentType);
+            Thread.currentThread().setName("Subject: " + studentType);
 
-                Student student = tunnel.get(studentType);
-                if (student != null)
+            Student student = tunnel.get(studentType);
+            if (student != null)
                 while (student.countCheck()) {
-                    //использую sleep только для эмуляции работы студентов(нужно время чтоб студенты пришли)
-                    Thread.sleep(100);
                     student.add(5);
                     System.out.println(student.getCount() + " Jobs verified " + Thread.currentThread().getName());
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 }
+
