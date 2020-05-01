@@ -16,7 +16,22 @@ public class Command {
         Command.prodid = numberProduct;
     }
 
-    public static void deleteProduct() throws SQLException {
+    public static Connection getNewConnection() throws ClassNotFoundException, SQLException {
+        final String URL = "jdbc:mysql://localhost:3306/production?useUnicode=true&serverTimezone=UTC&useSSL=true&verifyServerCertificate=false";
+        final String userName = "root";
+        final String password = "root";
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection connection = DriverManager.getConnection(URL, userName, password);
+
+        if (connection.isValid(1)) {
+            System.out.println("Подключена БД");
+        }
+
+        return connection;
+    }
+
+    public static void deleteProduct(Connection connection) throws SQLException {
         System.out.print("Какой товар удалить: ");
         String title = input.next();
         try(PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM product WHERE title = ? ")) {
@@ -25,7 +40,7 @@ public class Command {
         }
     }
 
-    public static void addProduct() throws SQLException {
+    public static void addProduct(Connection connection) throws SQLException {
         try{
             System.out.print("Введите название товара: ");
             String title = input.next();
@@ -45,7 +60,7 @@ public class Command {
         }
     }
 
-    public static void priceProduct() throws SQLException {
+    public static void priceProduct(Connection connection) throws SQLException {
         {
             System.out.print("Введите название товара у которого хотите узнать цену: ");
             String title = input.next();
@@ -62,7 +77,7 @@ public class Command {
         }
     }
 
-    public static void change_priceProduct() {
+    public static void change_priceProduct(Connection connection) {
         try
         {
             System.out.print("Введите товар у которого хотите поменять цену: ");
@@ -81,7 +96,7 @@ public class Command {
         }
     }
 
-    public static void filter_bi_priceProduct() {
+    public static void filter_bi_priceProduct(Connection connection) {
         try
         {
             System.out.print("С какой цены: ");
@@ -109,7 +124,7 @@ public class Command {
         }
     }
 
-    public static void show_allProduct() throws SQLException {
+    public static void show_allProduct(Connection connection) throws SQLException {
         System.out.println("Вывод всех товаров");
         try (ResultSet resultSet = connection.createStatement().executeQuery("SELECT * FROM product")) {
             while (resultSet.next()) {
