@@ -4,17 +4,17 @@ import generator.Student;
 import generator.SubjectName;
 
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Random;
 
 public class Cabinet {
     private int numberInCabinet;
-    private Queue<Student> queue;
+    private ConcurrentLinkedQueue<Student> queue;
     private int studentCounter;
     private int numberToGenerate;
 
     public Cabinet(int numberToGenerate) {
-        this.queue = new LinkedList<>();
+        this.queue = new ConcurrentLinkedQueue<>();
         this.numberInCabinet = 0;
         this.numberToGenerate = numberToGenerate;
     }
