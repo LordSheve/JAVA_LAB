@@ -2,8 +2,6 @@ package factory;
 
 import generator.Student;
 import generator.SubjectName;
-
-import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.Random;
 

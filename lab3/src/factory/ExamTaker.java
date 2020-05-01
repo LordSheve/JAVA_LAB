@@ -4,9 +4,6 @@ import generator.StudentsGenerator;
 import generator.SubjectName;
 import robots.Robot;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-
 public class ExamTaker {
     Robot mathRobot;
     Robot physicRobot;

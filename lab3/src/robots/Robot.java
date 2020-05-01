@@ -1,9 +1,7 @@
 package robots;
 
 import factory.Cabinet;
-import factory.RobotType;
 import generator.Student;
-import generator.StudentsGenerator;
 import generator.SubjectName;
 
 public class Robot implements Runnable{
