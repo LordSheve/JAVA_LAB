@@ -26,16 +26,13 @@ public class Robot implements Runnable{
                     while (student.getLabsCount() > 0) {
 
                         System.out.println("Роботу " + Thread.currentThread().getName() + " осталось принять " + student.getLabsCount() + " работ" + " у студента :" + student.getId());
-                        student.setLabsCount(student.getLabsCount() - 10);
+                        student.setLabsCount(student.getLabsCount() - 5);
                     }
 
                     System.out.println("Робот " + Thread.currentThread().getName() + " освободился");
 
                 }
                 else if (cabinet.isEnd()) {
-                    break;
-                }
-                if (cabinet.isEnd()) {
                     break;
                 }
             }

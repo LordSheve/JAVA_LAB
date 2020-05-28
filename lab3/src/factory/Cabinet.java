@@ -48,7 +48,6 @@ public class Cabinet {
                 return student;
             }
         }
-
         return null;
     }
 
