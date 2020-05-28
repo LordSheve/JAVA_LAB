@@ -30,17 +30,17 @@ import java.util.List;
         }
 
         @PostMapping(value = "/addOperations", consumes = "application/json", produces = "application/json")
-        public Operations addJournalRecord(@RequestBody Operations newOperations) {
+        public Operations addOperations(@RequestBody Operations newOperations) {
             return operationsService.addOperations(newOperations);
         }
 
         @PostMapping(value = "/addArticles", consumes = "application/json", produces = "application/json")
-        public Articles addClient(@RequestBody Articles newArticles) {
+        public Articles addArticles(@RequestBody Articles newArticles) {
             return articlesService.addArticles(newArticles);
         }
 
         @PostMapping(value = "/addBalance", consumes = "application/json", produces = "application/json")
-        public Balance addBook(@RequestBody Balance newBalance) {
+        public Balance addBalance(@RequestBody Balance newBalance) {
             return balanceService.addBalance(newBalance);
         }
 
@@ -54,7 +54,7 @@ import java.util.List;
             return new ResponseEntity<>(articlesService.articlesList(), HttpStatus.OK);
         }
 
-        @GetMapping("/books")
+        @GetMapping("/balance")
         public ResponseEntity<List<Balance>> getBalance() {
             return new ResponseEntity<>(balanceService.balanceList(), HttpStatus.OK);
         }
@@ -78,7 +78,7 @@ import java.util.List;
             }
         }
 
-        @GetMapping("/book/{id}")
+        @GetMapping("/balance/{id}")
         public ResponseEntity<Balance> getBalance(@PathVariable("id") int id) {
             try {
                 return new ResponseEntity<>(balanceService.findBalance(id), HttpStatus.OK);
@@ -107,7 +107,7 @@ import java.util.List;
         }
 
         @DeleteMapping("/balance/{id}")
-        public void deleteBook(@PathVariable("id") int id) {
+        public void deleteBalance(@PathVariable("id") int id) {
             try {
                 balanceService.deleteBalance(id);
             } catch (BalanceNotFoundExeption exception) {
@@ -117,15 +117,15 @@ import java.util.List;
 
 
         @PutMapping(value = "/operations/{id}", consumes = "application/json", produces = "application/json")
-        public ResponseEntity<Operations> updateJournalRecord(@PathVariable("id") int id, @RequestBody Operations newOperations) {
+        public ResponseEntity<Operations> updateOperations(@PathVariable("id") int id, @RequestBody Operations newOperations) {
             try {
                 Operations updatedOperations = operationsService.findOperations(id);
 
-                updatedOperations.setArticles(newOperations.getArticles());
+                updatedOperations.setArticlesId(newOperations.getArticlesId());
                 updatedOperations.setDebit(newOperations.getDebit());
                 updatedOperations.setCredit(newOperations.getCredit());
                 updatedOperations.setCreateDate(newOperations.getCreateDate());
-                updatedOperations.setBalance(newOperations.getBalance());
+                updatedOperations.setBalanceId(newOperations.getBalanceId());
 
                 return ResponseEntity.ok(operationsService.addOperations(updatedOperations));
             } catch (OperationsNotFoundExeption exception) {
@@ -134,7 +134,7 @@ import java.util.List;
         }
 
         @PutMapping(value = "/articles/{id}", consumes = "application/json", produces = "application/json")
-        public ResponseEntity<Articles> updateClient(@PathVariable("id") int id, @RequestBody Articles newArticles) {
+        public ResponseEntity<Articles> updateArticles(@PathVariable("id") int id, @RequestBody Articles newArticles) {
             try {
                 Articles updatedArticles = articlesService.findArticles(id);
 

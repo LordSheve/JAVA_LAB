@@ -14,9 +14,11 @@ public class Operations {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "articlesId")
-    private Articles articles;
+    //@ManyToOne
+    //@JoinColumn(name = "articlesId")
+    //private Articles articles;
+    @Column(name = "articlesId")
+    private Integer articlesId;
 
     @Column(name = "debit")
     private Integer debit;
@@ -27,7 +29,10 @@ public class Operations {
     @Column(name = "createDate")
     private Timestamp createDate;
 
-    @ManyToOne
-    @JoinColumn(name = "balanceId")
-    private Balance balance;
+    @Column(name = "balanceId")
+    private Integer balanceId;
+
+    //@ManyToOne
+    //@JoinColumn(name = "balanceId")
+    //private Balance balance;
 }
