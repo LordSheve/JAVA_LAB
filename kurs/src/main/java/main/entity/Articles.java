@@ -3,8 +3,6 @@ package main.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
@@ -17,8 +15,4 @@ public class Articles {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @OneToMany(targetEntity = Operations.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "artickesId", referencedColumnName = "id")
-    private List<Operations> operations = new ArrayList<>();
 }

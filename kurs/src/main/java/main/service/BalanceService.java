@@ -5,8 +5,7 @@ import main.entity.Balance;
 import java.util.List;
 
 public interface BalanceService {
-    List<Balance> balanceList();
-    Balance findBalance(int id);
+    List<Balance> listBalance();
+    Balance findBalance(long id);
     Balance addBalance(Balance balance);
-    void deleteBalance(int id);
 }

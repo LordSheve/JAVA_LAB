@@ -11,17 +11,18 @@ import java.util.Optional;
 
 @Service
 public class BalanceServiceImpl implements BalanceService {
+
     @Autowired
     private BalanceRepository balanceRepository;
 
     @Override
-    public List<Balance> balanceList() {
+    public List<Balance> listBalance() {
         return (List<Balance>) balanceRepository.findAll();
     }
 
     @Override
-    public Balance findBalance(int id) {
-        Optional<Balance> optionalBalance = balanceRepository.findById((long)id);
+    public Balance findBalance(long id) {
+        Optional<Balance> optionalBalance = balanceRepository.findById(id);
         if (optionalBalance.isPresent()) {
             return optionalBalance.get();
         } else {
@@ -32,15 +33,5 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public Balance addBalance(Balance balance) {
         return balanceRepository.save(balance);
-    }
-
-    @Override
-    public void deleteBalance(int id) {
-        Optional<Balance> optionalBalance = balanceRepository.findById((long)id);
-        if (optionalBalance.isPresent()) {
-            balanceRepository.delete(optionalBalance.get());
-        } else {
-            throw new BalanceNotFoundExeption("Not found!");
-        }
     }
 }

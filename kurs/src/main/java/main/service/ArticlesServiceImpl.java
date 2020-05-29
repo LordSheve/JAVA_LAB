@@ -16,30 +16,15 @@ public class ArticlesServiceImpl implements ArticlesService {
     private ArticlesRepository articlesRepository;
 
     @Override
-    public List<Articles> articlesList() {
+    public List<Articles> listArticles() {
         return (List<Articles>) articlesRepository.findAll();
     }
 
     @Override
-    public Articles findArticles(int id) {
-        Optional<Articles> optionalArticles = articlesRepository.findById((long)id);
+    public Articles findArticles(long id) {
+        Optional<Articles> optionalArticles = articlesRepository.findById(id);
         if (optionalArticles.isPresent()) {
             return optionalArticles.get();
-        } else {
-            throw new ArticlesNotFoundExeption("Not found!");
-        }
-    }
-
-    @Override
-    public Articles addArticles(Articles articles) {
-        return articlesRepository.save(articles);
-    }
-
-    @Override
-    public void deleteArticles(int id) {
-        Optional<Articles> optionalArticles = articlesRepository.findById((long)id);
-        if (optionalArticles.isPresent()) {
-            articlesRepository.delete(optionalArticles.get());
         } else {
             throw new ArticlesNotFoundExeption("Not found!");
         }

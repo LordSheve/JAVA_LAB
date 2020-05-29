@@ -14,17 +14,18 @@ import java.util.Optional;
 
 @Service
 public class OperationsServiceImpl implements OperationsService {
+
     @Autowired
     private OperationsRepository operationsRepository;
 
     @Override
-    public List<Operations> operationlList() {
+    public List<Operations> listOperations() {
         return (List<Operations>) operationsRepository.findAll();
     }
 
     @Override
-    public Operations findOperations(int id) {
-        Optional<Operations> optionalOperations = operationsRepository.findById((long)id);
+    public Operations findOperations(long id) {
+        Optional<Operations> optionalOperations = operationsRepository.findById(id);
         if (optionalOperations.isPresent()) {
             return optionalOperations.get();
         } else {
@@ -37,13 +38,4 @@ public class OperationsServiceImpl implements OperationsService {
         return operationsRepository.save(operations);
     }
 
-    @Override
-    public void deleteOperations(int id) {
-        Optional<Operations> optionalOperations = operationsRepository.findById((long)id);
-        if (optionalOperations.isPresent()) {
-            operationsRepository.delete(optionalOperations.get());
-        } else {
-            throw new OperationsNotFoundExeption("Not found!");
-        }
-    }
 }

@@ -4,8 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @Entity
@@ -27,8 +25,4 @@ public class Balance {
 
     @Column(name = "amount")
     private Integer amount;
-
-    @OneToMany(targetEntity = Operations.class, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "balanceId", referencedColumnName = "id")
-    private List<Operations> operations = new ArrayList<>();
 }
