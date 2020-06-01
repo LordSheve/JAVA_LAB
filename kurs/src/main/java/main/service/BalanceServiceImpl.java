@@ -3,6 +3,7 @@ package main.service;
 import main.entity.Balance;
 import main.exeption.BalanceNotFoundExeption;
 import main.repository.BalanceRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,17 @@ public class BalanceServiceImpl implements BalanceService {
     public Balance addBalance(Balance balance) {
         return balanceRepository.save(balance);
     }
+
+    @Override
+    public Balance updateBalance(long id, Balance balance) {
+        Balance existingBalance = findBalance(id);
+        BeanUtils.copyProperties(balance, existingBalance);
+        return balanceRepository.save(existingBalance);
+    }
+
+    @Override
+    public void deleteBalance(long id) {
+        balanceRepository.delete(findBalance(id));
+    }
 }
+

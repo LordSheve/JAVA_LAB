@@ -1,9 +1,9 @@
 package main.controller;
 
+import lombok.RequiredArgsConstructor;
 import main.entity.Balance;
 import main.exeption.BalanceNotFoundExeption;
 import main.service.BalanceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,27 +12,23 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/balance")
+@RequestMapping("/lib")
+@RequiredArgsConstructor
 public class BalanceController {
-
     private BalanceService balanceService;
 
-    public BalanceController(BalanceService balanceService) {
-        this.balanceService = balanceService;
-    }
-
-    @PostMapping(value = "/add", consumes = "balances/json", produces = "balances/json")
+    @PostMapping(value = "balance/add", consumes = "balances/json", produces = "balances/json")
     public Balance addBalance(@RequestBody Balance balance) {
         return balanceService.addBalance(balance);
     }
 
-    @GetMapping("/all")
+    @GetMapping("balance/all")
     public ResponseEntity<List<Balance>> getAllBalance() {
         List<Balance> list = balanceService.listBalance();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("balance/{id}")
     public ResponseEntity<Balance> getBalance(@PathVariable("id") long id) {
         try {
             return new ResponseEntity<>(balanceService.findBalance(id), HttpStatus.OK);
@@ -41,8 +37,21 @@ public class BalanceController {
         }
     }
 
-    @Autowired
-    public void setBalanceService(BalanceService balanceService) {
-        this.balanceService = balanceService;
+    @DeleteMapping("balance/{id}")
+    public void deleteBalance(@PathVariable("id") long id) {
+        try {
+            balanceService.deleteBalance(id);
+        } catch (BalanceNotFoundExeption exeption) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+        }
+    }
+
+    @PutMapping(value = "balance/{id}", consumes = "application/json", produces = "application/json")
+    public Balance updateBalance(@PathVariable("id") long id, @RequestBody Balance balance) {
+        try {
+            return balanceService.updateBalance(id, balance);
+        } catch (BalanceNotFoundExeption exeption) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found!");
+        }
     }
 }

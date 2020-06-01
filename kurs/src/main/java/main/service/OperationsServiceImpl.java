@@ -6,6 +6,7 @@ import main.exeption.BalanceNotFoundExeption;
 import main.exeption.OperationsNotFoundExeption;
 import main.repository.BalanceRepository;
 import main.repository.OperationsRepository;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,12 +40,14 @@ public class OperationsServiceImpl implements OperationsService {
     }
 
     @Override
-    public void deleteOperations(Long id) {
-        Optional<Operations> optionalOperations = operationsRepository.findById(id);
-        if (optionalOperations.isPresent()) {
-            operationsRepository.delete(optionalOperations.get());
-        } else {
-            throw new OperationsNotFoundExeption("Not found!");
-        }
+    public Operations updateOperations(long id, Operations operations) {
+        Operations existingOperations = findOperations(id);
+        BeanUtils.copyProperties(operations, existingOperations);
+        return operationsRepository.save(existingOperations);
+    }
+
+    @Override
+    public void deleteOperations(long id) {
+        operationsRepository.delete(findOperations(id));
     }
 }

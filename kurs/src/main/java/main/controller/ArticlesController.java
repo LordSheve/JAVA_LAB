@@ -1,37 +1,34 @@
 package main.controller;
 
-
+import lombok.RequiredArgsConstructor;
 import main.entity.Articles;
 import main.exeption.ArticlesNotFoundExeption;
 import main.service.ArticlesService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.net.http.HttpResponse;
+;
 import java.util.List;
 
 @RestController
-@RequestMapping("/articles")
+@RequestMapping("/lib")
+@RequiredArgsConstructor
 public class ArticlesController {
     private ArticlesService articlesService;
 
-    public ArticlesController(ArticlesService articlesService) {
-        this.articlesService = articlesService;
+    @PostMapping(value = "articles/add", consumes = "balances/json", produces = "balances/json")
+    public Articles addArticles(@RequestBody Articles articles) {
+        return articlesService.addArticles(articles);
     }
 
-    @GetMapping("/all")
+    @GetMapping("articles/all")
     public ResponseEntity<List<Articles>> getAllArticles() {
         List<Articles> list = articlesService.listArticles();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("articles/{id}")
     public ResponseEntity<Articles> getArticles(@PathVariable("id") long id) {
         try {
             return new ResponseEntity<>(articlesService.findArticles(id), HttpStatus.OK);
@@ -40,8 +37,21 @@ public class ArticlesController {
         }
     }
 
-    @Autowired
-    private void setArticlesService(ArticlesService articlesService) {
-        this.articlesService = articlesService;
+    @DeleteMapping("articles/{id}")
+    public void deleteArticles(@PathVariable("id") long id) {
+        try {
+            articlesService.deleteArticles(id);
+        } catch (ArticlesNotFoundExeption exeption) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+        }
+    }
+
+    @PutMapping(value = "articles/{id}", consumes = "application/json", produces = "application/json")
+    public Articles updateArticles(@PathVariable("id") long id, @RequestBody Articles articles) {
+        try {
+            return articlesService.updateArticles(id, articles);
+        } catch (ArticlesNotFoundExeption exeption) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found!");
+        }
     }
 }

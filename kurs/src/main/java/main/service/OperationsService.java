@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface OperationsService {
     List<Operations> listOperations();
+
     Operations findOperations(long id);
     Operations addOperations(Operations operations);
-    void deleteOperations(Long id);
+    Operations updateOperations(long id, Operations operations);
+    void deleteOperations(long id);
 }
