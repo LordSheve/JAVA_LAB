@@ -8,4 +8,5 @@ public interface OperationsService {
     List<Operations> listOperations();
     Operations findOperations(long id);
     Operations addOperations(Operations operations);
+    void deleteOperations(Long id);
 }

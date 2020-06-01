@@ -21,6 +21,10 @@ import java.util.List;
 public class ArticlesController {
     private ArticlesService articlesService;
 
+    public ArticlesController(ArticlesService articlesService) {
+        this.articlesService = articlesService;
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<Articles>> getAllArticles() {
         List<Articles> list = articlesService.listArticles();

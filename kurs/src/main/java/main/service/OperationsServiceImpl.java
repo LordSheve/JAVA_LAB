@@ -38,4 +38,13 @@ public class OperationsServiceImpl implements OperationsService {
         return operationsRepository.save(operations);
     }
 
+    @Override
+    public void deleteOperations(Long id) {
+        Optional<Operations> optionalOperations = operationsRepository.findById(id);
+        if (optionalOperations.isPresent()) {
+            operationsRepository.delete(optionalOperations.get());
+        } else {
+            throw new OperationsNotFoundExeption("Not found!");
+        }
+    }
 }

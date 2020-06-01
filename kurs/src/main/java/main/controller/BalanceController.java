@@ -17,6 +17,10 @@ public class BalanceController {
 
     private BalanceService balanceService;
 
+    public BalanceController(BalanceService balanceService) {
+        this.balanceService = balanceService;
+    }
+
     @PostMapping(value = "/add", consumes = "balances/json", produces = "balances/json")
     public Balance addBalance(@RequestBody Balance balance) {
         return balanceService.addBalance(balance);

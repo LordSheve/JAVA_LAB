@@ -16,6 +16,10 @@ import java.util.List;
 public class OperationsController {
     private OperationsService operationsService;
 
+    public OperationsController(OperationsService operationsService) {
+        this.operationsService = operationsService;
+    }
+
     @PostMapping(value = "/add", consumes = "operations/json", produces = "operations/json")
     public Operations addOperations(@RequestBody Operations operations) {
         return operationsService.addOperations(operations);
@@ -31,6 +35,15 @@ public class OperationsController {
     public ResponseEntity<Operations> getOperations(@PathVariable("id") long id) {
         try {
             return new ResponseEntity<>(operationsService.findOperations(id), HttpStatus.OK);
+        } catch (OperationsNotFoundExeption exeption) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+        }
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteOperations(@PathVariable("id") Long id) {
+        try {
+            operationsService.deleteOperations(id);
         } catch (OperationsNotFoundExeption exeption) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
         }
