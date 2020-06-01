@@ -36,7 +36,7 @@ public class AuthController {
             model.put("token", token);
 
             return ResponseEntity.ok(model);
-        } catch (AuthenticationException e) {
+        } catch (AuthenticationException exeption) {
             throw new BadCredentialsException("Invalid username or password");
         }
     }
