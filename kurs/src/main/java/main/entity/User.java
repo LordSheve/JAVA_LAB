@@ -27,7 +27,6 @@ public class User implements UserDetails {
     private List<String> roles = new ArrayList<>();
 
     public User() {
-
     }
 
     public User(String uName, String pwd, List<String> roles) {
