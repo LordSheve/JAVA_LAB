@@ -15,9 +15,9 @@ import java.util.List;
 @RequestMapping("/lib")
 @RequiredArgsConstructor
 public class BalanceController {
-    private BalanceService balanceService;
+    private final BalanceService balanceService;
 
-    @PostMapping(value = "balance/add", consumes = "balances/json", produces = "balances/json")
+    @PostMapping(value = "balance/add", consumes = "application/json", produces = "application/json")
     public Balance addBalance(@RequestBody Balance balance) {
         return balanceService.addBalance(balance);
     }

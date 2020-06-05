@@ -15,10 +15,13 @@ import java.util.List;
 @RequestMapping("/lib")
 @RequiredArgsConstructor
 public class ArticlesController {
-    private ArticlesService articlesService;
 
-    @PostMapping(value = "articles/add", consumes = "balances/json", produces = "balances/json")
-    public Articles addArticles(@RequestBody Articles articles) {
+    private final ArticlesService articlesService;
+
+    @PostMapping(value = "articles/add", consumes = "application/json", produces = "application/json")
+    public Articles addArticles(@RequestBody Articles articles)
+    {
+        System.err.println("art " + articles.getName());
         return articlesService.addArticles(articles);
     }
 

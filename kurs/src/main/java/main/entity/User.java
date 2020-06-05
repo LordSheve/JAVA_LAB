@@ -1,5 +1,6 @@
 package main.entity;
 
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,11 +20,13 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @Setter
     private String userName;
-
+    @Setter
     private String password;
 
     @ElementCollection(fetch = FetchType.EAGER)
+    @Setter
     private List<String> roles = new ArrayList<>();
 
     public User() {

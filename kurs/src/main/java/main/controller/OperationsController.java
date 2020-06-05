@@ -15,9 +15,9 @@ import java.util.List;
 @RequestMapping("lib")
 @RequiredArgsConstructor
 public class OperationsController {
-    private OperationsService operationsService;
+    private final OperationsService operationsService;
 
-    @PostMapping(value = "operations/add", consumes = "operations/json", produces = "operations/json")
+    @PostMapping(value = "operations/add", consumes = "application/json", produces = "application/json")
     public Operations addOperations(@RequestBody Operations operations) {
         return operationsService.addOperations(operations);
     }

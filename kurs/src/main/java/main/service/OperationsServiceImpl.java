@@ -41,7 +41,7 @@ public class OperationsServiceImpl implements OperationsService {
 
     @Override
     public Operations updateOperations(long id, Operations operations) {
-        Operations existingOperations = findOperations(id);
+            Operations existingOperations = findOperations(id);
         BeanUtils.copyProperties(operations, existingOperations);
         return operationsRepository.save(existingOperations);
     }
